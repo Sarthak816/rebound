@@ -16,22 +16,29 @@ const TeacherDashboard = () => {
     const [loading, setLoading] = useState(true);
     const [selectedStudent, setSelectedStudent] = useState(null);
 
-    useEffect(() => {
-        const fetchStudents = async () => {
-            try {
-                const res = await api.get('/teacher/students');
-                const apiStudents = res.data || [];
-                setStudents(apiStudents);
-            } catch (error) {
-                console.error('Error fetching students:', error);
-                showError('Failed to load students');
-                setStudents([]);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const fetchStudents = async () => {
+        try {
+            const res = await api.get('/teacher/students');
+            const apiStudents = res.data || [];
+            setStudents(apiStudents);
+        } catch (error) {
+            console.error('Error fetching students:', error);
+            setStudents([]);
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    useEffect(() => {
         fetchStudents();
+
+        // Auto-refresh every 30 seconds
+        const interval = setInterval(() => {
+            console.log('🔄 Auto-refreshing student data...');
+            fetchStudents();
+        }, 30000);
+
+        return () => clearInterval(interval);
     }, []);
 
     const getRiskColor = (level) => {
