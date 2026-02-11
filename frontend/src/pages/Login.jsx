@@ -66,7 +66,7 @@ const Login = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-sage-700 hover:bg-sage-800 text-white py-2 rounded transition-colors flex justify-center items-center"
+                        className="w-full bg-sage-700 hover:bg-sage-800 text-white py-2 rounded transition-all hover:scale-105 hover:shadow-lg flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                         disabled={isLoading}
                     >
                         {isLoading ? <Loader2 className="animate-spin h-5 w-5" /> : 'Sign In'}
