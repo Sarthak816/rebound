@@ -1,6 +1,7 @@
 # Rebound: Academic Recovery Platform
 
 A full-stack application to help students manage academic recovery through AI-powered task prioritization, stress tracking, and intelligent analytics.
+*(Solution for PS03: Personalized Academic Recovery Engine)*
 
 ## 🏆 What Makes Rebound Different
 - **AI Study Buddy**: Real-time context-aware chat to help with prioritization and stress.
