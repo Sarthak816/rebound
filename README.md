@@ -1,97 +1,95 @@
-# 🏀 REBOUND: Personalized Academic Recovery Engine
+# REBOUND: Personalized Academic Recovery Engine
 
-> **Problem Statement ID:** PS03 - Academic Recovery & Mental Wellness
-
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Status](https://img.shields.io/badge/status-Hackathon_Winner-orange.svg)
+**Problem Statement ID:** PS03 - Academic Recovery & Mental Wellness
 
 ---
 
-## 🚨 The Crisis
-Students today aren't just failing classes; they are burning out. 
-- **The Problem:** Existing tools manage *tasks*, but they ignore the *human*. A todo list with 50 items doesn't help—it paralyzes.
-- **The Solution:** **Rebound** is an AI-powered recovery engine that balances **Academic Workload** with **Mental Health**. It doesn't just tell you *what* to do; it tells you *when* to stop.
+## The Problem
+Students today face a dual crisis: **Overwhelming Academics** and **Mental Health Burnout**. Existing tools manage lists, but they ignore the human element. Students drown in "Todo" lists without knowing *how* or *when* to start.
+
+## The Solution
+**Rebound** is not just a task manager. It is an **AI-powered recovery engine** that balances your workload with your mental state. It doesn't just tell you *what* to do; it prioritizes tasks based on your stress level and deadlines.
 
 ---
 
-## ✨ Key "Winning" Features
+## Key Features
 
-### 🧠 For Students
-- **🪄 Magic To-Do Breakdowns**: Overwhelmed by "Write Thesis"? Click one button to break it into 10 manageable steps using our **Task Decomposition Algorithm**.
-- **📉 Stress-Aware Prioritization**: Our **Recovery Engine** (RPS Algorithm) deprioritizes work when your reported stress is high.
-- **📅 Calendar Heatmaps**: Visualizing burn-out trends before they happen.
-- **💬 AI Study Buddy**: A context-aware assistant that knows your deadlines and stress levels.
+### For Students
+*   **AI Study Buddy**: Real-time context-aware chat to help with prioritization and stress.
+*   **Stress-Aware Planning**: We don't just track tasks; we adapt to your mental health status.
+*   **Goblin Tools Integration**: "Magic To-Do" breaks down complex tasks instantly into manageable steps.
+*   **Calendar Heatmap**: Visualize your academic intensity over time.
+*   **Grade Simulator**: Assess impact of assignments on final grades to make informed decisions.
 
-### 🍎 For Teachers & Admins
-- **🚩 Risk Analysis Dashboard**: Automatically flags students at risk of failure based on missed tasks + stress trends.
-- **🤝 Direct Intervention**: Send support messages directly to struggling students.
+### For Teachers
+*   **Risk Analysis Dashboard**: Identify struggling students before they fail.
+*   **Direct Intervention**: Message students who show signs of burnout.
+*   **Wellness Monitoring**: View stress trends alongside academic performance.
 
----
-
-## 🛠️ Tech Stack
-- **Frontend**: React + Vite (Fast & Responsive)
-- **Styling**: Tailwind CSS + Framer Motion (Smooth Animations)
-- **Backend**: Node.js + Express (Robust API)
-- **Database**: MongoDB (Flexible Data Structure)
-- **Intelligence**: Custom Priority Algorithms + Context-Aware Logic
+### For Admins
+*   **System Health Monitoring**: Real-time platform analytics.
+*   **User Management**: Role-based access control for secure data handling.
 
 ---
 
-## 🚀 Quick Start (Demo Mode)
+## Tech Stack
+
+*   **Frontend**: React, Vite, Tailwind CSS, Recharts, Framer Motion
+*   **Backend**: Node.js, Express, MongoDB
+*   **AI Engine**: Context-Aware Logic with Sentiment Analysis
+
+---
+
+## Quick Start
 
 ### Prerequisites
-- Node.js (v16+)
-- MongoDB (Local or Atlas)
+*   Node.js (v14+)
+*   MongoDB (Local or Atlas Connection String)
 
-### 1. Clone & Install
-```bash
-git clone https://github.com/Sarthak816/rebound.git
-cd rebound
+### Installation
 
-# Install Backend
-cd backend
-npm install
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/Sarthak816/rebound.git
+    cd rebound
+    ```
 
-# Install Frontend
-cd ../frontend
-npm install
-```
+2.  **Install Backend Dependencies**
+    ```bash
+    cd backend
+    npm install
+    ```
 
-### 2. Run the Engine
-Open two terminals:
+3.  **Install Frontend Dependencies**
+    ```bash
+    cd ../frontend
+    npm install
+    ```
 
-**Terminal 1 (Backend)**
-```bash
-cd backend
-npm start
-# Server runs on Port 5000
-```
+4.  **Run the Application**
+    *   **Backend** (Port 5000):
+        ```bash
+        npm start
+        ```
+    *   **Frontend** (Port 5173):
+        ```bash
+        npm run dev
+        ```
 
-**Terminal 2 (Frontend)**
-```bash
-cd frontend
-npm run dev
-# App runs on http://localhost:5173
-```
-
----
-
-## 🔐 Credentials for Judges
-We have pre-loaded data for a seamless demo experience:
-
-| Role | Email | Password | Features to Test |
-|------|-------|----------|------------------|
-| **Student** | `student@rebound.edu` | `Password@123` | Magic To-Do, Stress Logging, AI Chat |
-| **Teacher** | `teacher@rebound.edu` | `Password@123` | Risk Dashboard, Student Messaging |
-| **Admin** | `admin@rebound.edu` | `Password@123` | System Health, User Management |
+5.  **Access the App**
+    Open `http://localhost:5173` in your browser.
 
 ---
 
-## 📸 Screenshots
-*(Add screenshots of Dashboard, Magic Todo, and Risk Analysis here)*
+## Demo Credentials
+
+You can use these pre-configured accounts to explore the platform:
+
+*   **Student**: `student@rebound.edu` / `Password@123`
+*   **Teacher**: `teacher@rebound.edu` / `Password@123`
+*   **Admin**:   `admin@rebound.edu`   / `Password@123`
 
 ---
 
-## 📄 License
-MIT License - Built with ❤️ for AMUHacks
+## License
+MIT License
