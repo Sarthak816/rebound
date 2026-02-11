@@ -10,6 +10,7 @@ import ProgressStats from '../components/ProgressStats';
 import EmptyState from '../components/EmptyState';
 import { SkeletonCard, SkeletonStats } from '../components/Skeleton';
 import { Loader2, Zap, BookOpen, AlertTriangle, Plus, BarChart3, ListTodo, UserCircle, Search, Filter } from 'lucide-react';
+import NotificationBell from '../components/NotificationBell';
 
 const StudentDashboard = () => {
     const { user, logout } = useAuth();
@@ -173,6 +174,7 @@ const StudentDashboard = () => {
                         <p className="text-xs text-academic-500">Welcome back, {user?.name}</p>
                     </div>
                     <div className="flex gap-2 items-center">
+                        <NotificationBell />
                         <button
                             onClick={() => window.location.href = '/student/profile'}
                             className="bg-academic-100 text-academic-700 px-3 py-1.5 rounded-md text-sm flex items-center gap-1 hover:bg-academic-200 transition-all hover:scale-105"
