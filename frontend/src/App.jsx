@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import StudentDashboard from './pages/StudentDashboard';
 import TeacherDashboard from './pages/TeacherDashboard';
@@ -17,8 +18,8 @@ function App() {
       <ToastProvider>
         <AuthProvider>
           <Routes>
-            {/* Root redirect to login */}
-            <Route path="/" element={<Navigate to="/login" replace />} />
+            {/* Landing Page */}
+            <Route path="/" element={<LandingPage />} />
 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

@@ -8,7 +8,7 @@ import TaskInput from '../components/TaskInput';
 import ProgressStats from '../components/ProgressStats';
 import EmptyState from '../components/EmptyState';
 import { SkeletonCard, SkeletonStats } from '../components/Skeleton';
-import { Loader2, Zap, BookOpen, AlertTriangle, Plus, BarChart3, ListTodo, UserCircle } from 'lucide-react';
+import { Loader2, Zap, BookOpen, AlertTriangle, Plus, BarChart3, ListTodo, UserCircle, Search, Filter } from 'lucide-react';
 
 const StudentDashboard = () => {
     const { user, logout } = useAuth();
@@ -18,6 +18,10 @@ const StudentDashboard = () => {
     const [data, setData] = useState(null);
     const [showStressModal, setShowStressModal] = useState(false);
     const [showTaskInput, setShowTaskInput] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filterSubject, setFilterSubject] = useState('all');
+    const [filterStatus, setFilterStatus] = useState('all');
+    const [sortBy, setSortBy] = useState('dueDate');
     const [editingTask, setEditingTask] = useState(null);
 
     const fetchDashboard = async () => {
@@ -89,6 +93,47 @@ const StudentDashboard = () => {
         setEditingTask(null);
     };
 
+    // Filter and sort tasks
+    const getFilteredAndSortedTasks = () => {
+        if (!data?.tasks) return [];
+
+        let filtered = data.tasks;
+
+        // Apply search filter
+        if (searchQuery) {
+            filtered = filtered.filter(task =>
+                task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                task.description?.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
+
+        // Apply subject filter
+        if (filterSubject !== 'all') {
+            filtered = filtered.filter(task => task.subject?._id === filterSubject);
+        }
+
+        // Apply status filter
+        if (filterStatus !== 'all') {
+            filtered = filtered.filter(task => task.status === filterStatus);
+        }
+
+        // Apply sorting
+        filtered.sort((a, b) => {
+            switch (sortBy) {
+                case 'dueDate':
+                    return new Date(a.dueDate) - new Date(b.dueDate);
+                case 'priority':
+                    return (b.weightage || 0) - (a.weightage || 0);
+                case 'title':
+                    return a.title.localeCompare(b.title);
+                default:
+                    return 0;
+            }
+        });
+
+        return filtered;
+    };
+
     if (loading) {
         return (
             <div className="min-h-screen bg-academic-50">
@@ -151,6 +196,71 @@ const StudentDashboard = () => {
             </header>
 
             <main className="max-w-4xl mx-auto p-4 space-y-6">
+                {/* Search and Filter Bar */}
+                <div className="bg-white rounded-lg border border-academic-200 p-4 space-y-3">
+                    {/* Search Bar */}
+                    <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-academic-400" size={18} />
+                        <input
+                            type="text"
+                            placeholder="Search tasks..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full pl-10 pr-4 py-2 border border-academic-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sage-500"
+                        />
+                    </div>
+
+                    {/* Filters */}
+                    <div className="flex flex-wrap gap-3">
+                        <div className="flex items-center gap-2">
+                            <Filter size={16} className="text-academic-600" />
+                            <select
+                                value={filterSubject}
+                                onChange={(e) => setFilterSubject(e.target.value)}
+                                className="px-3 py-1.5 text-sm border border-academic-300 rounded-md focus:outline-none focus:ring-1 focus:ring-sage-500"
+                            >
+                                <option value="all">All Subjects</option>
+                                {subjects?.map(subject => (
+                                    <option key={subject._id} value={subject._id}>{subject.name}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <select
+                            value={filterStatus}
+                            onChange={(e) => setFilterStatus(e.target.value)}
+                            className="px-3 py-1.5 text-sm border border-academic-300 rounded-md focus:outline-none focus:ring-1 focus:ring-sage-500"
+                        >
+                            <option value="all">All Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+
+                        <select
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value)}
+                            className="px-3 py-1.5 text-sm border border-academic-300 rounded-md focus:outline-none focus:ring-1 focus:ring-sage-500"
+                        >
+                            <option value="dueDate">Sort by Due Date</option>
+                            <option value="priority">Sort by Priority</option>
+                            <option value="title">Sort by Title</option>
+                        </select>
+
+                        {(searchQuery || filterSubject !== 'all' || filterStatus !== 'all') && (
+                            <button
+                                onClick={() => {
+                                    setSearchQuery('');
+                                    setFilterSubject('all');
+                                    setFilterStatus('all');
+                                }}
+                                className="px-3 py-1.5 text-sm text-sage-700 hover:text-sage-900 font-medium"
+                            >
+                                Clear Filters
+                            </button>
+                        )}
+                    </div>
+                </div>
+
 
                 {/* Status Section */}
                 {recoveryPlan && (
@@ -200,19 +310,32 @@ const StudentDashboard = () => {
                     <h2 className="text-lg font-serif font-bold text-academic-700 mb-4 mt-8 flex items-center gap-2">
                         <BookOpen size={18} />
                         All Assignments
+                        {getFilteredAndSortedTasks().length > 0 && (
+                            <span className="text-sm font-normal text-academic-500">
+                                ({getFilteredAndSortedTasks().length} {getFilteredAndSortedTasks().length === 1 ? 'task' : 'tasks'})
+                            </span>
+                        )}
                     </h2>
-                    {tasks?.length === 0 ? (
+                    {getFilteredAndSortedTasks().length === 0 ? (
                         <EmptyState
                             icon={ListTodo}
-                            title="No Tasks Yet"
-                            message="Start by adding your first task! Track assignments, set deadlines, and let our AI help you prioritize your workload."
-                            actionText="Add Your First Task"
-                            onAction={() => setShowTaskInput(true)}
+                            title={searchQuery || filterSubject !== 'all' || filterStatus !== 'all' ? "No Tasks Found" : "No Tasks Yet"}
+                            message={searchQuery || filterSubject !== 'all' || filterStatus !== 'all' ? "Try adjusting your filters or search query." : "Start by adding your first task! Track assignments, set deadlines, and let our AI help you prioritize your workload."}
+                            actionText={searchQuery || filterSubject !== 'all' || filterStatus !== 'all' ? "Clear Filters" : "Add Your First Task"}
+                            onAction={() => {
+                                if (searchQuery || filterSubject !== 'all' || filterStatus !== 'all') {
+                                    setSearchQuery('');
+                                    setFilterSubject('all');
+                                    setFilterStatus('all');
+                                } else {
+                                    setShowTaskInput(true);
+                                }
+                            }}
                             variant="primary"
                         />
                     ) : (
-                        <div className="space-y-3 opacity-80">
-                            {tasks?.filter(t => !recoveryPlan?.recommendedTasks?.find(rt => rt._id === t._id)).map(task => (
+                        <div className="space-y-3">
+                            {getFilteredAndSortedTasks().map(task => (
                                 <TaskCard
                                     key={task._id}
                                     task={task}
