@@ -1,96 +1,95 @@
-# Rebound: Academic Recovery Platform
+# REBOUND: Personalized Academic Recovery Engine
 
-A full-stack application to help students manage academic recovery through AI-powered task prioritization, stress tracking, and intelligent analytics.
-*(Solution for PS03: Personalized Academic Recovery Engine)*
+**Problem Statement ID:** PS03 - Academic Recovery & Mental Wellness
 
-## What Makes Rebound Different
-- **AI Study Buddy**: Real-time context-aware chat to help with prioritization and stress.
-- **Stress-Aware Planning**: We don't just track tasks; we adapt to your mental health.
-- **Teacher Intervention**: Automated risk detection connects struggling students with educators.
-- **Production Ready**: Full-stack implementation with secure authentication and real database.
+---
 
-## Features
+## The Problem
+Students today face a dual crisis: **Overwhelming Academics** and **Mental Health Burnout**. Existing tools manage lists, but they ignore the human element. Students drown in "Todo" lists without knowing *how* or *when* to start.
 
-### Student Dashboard
-- **AI Study Buddy Chatbot**
-- Personalized recovery plans based on deadlines and stress levels
-- Interactive calendar heatmap showing workload intensity
-- Real-time grade impact simulator
-- Smart task prioritizer with AI categorization
-- Achievement system with badges and XP
-- Stress timeline with trend analysis
-- Task breakdown for overwhelming assignments
+## The Solution
+**Rebound** is not just a task manager. It is an **AI-powered recovery engine** that balances your workload with your mental state. It doesn't just tell you *what* to do; it prioritizes tasks based on your stress level and deadlines.
 
-### Teacher Dashboard
-- Risk overview of assigned students
-- Student intervention tools
-- Messaging system for check-ins
-- Progress monitoring
-
-### Admin Dashboard
-- User management
-- System health metrics
-- Platform analytics
-
-## Tech Stack
-
-**Frontend**: React, Vite, Tailwind CSS, Recharts  
-**Backend**: Node.js, Express, MongoDB (Mongoose)  
-**Auth**: JWT with role-based access control
-
-## Setup & Run
-
-### Backend
-```bash
-cd backend
-npm install
-npm start
-```
-Backend runs on http://localhost:5000
-
-### Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
-Frontend runs on http://localhost:5173
-
-## Demo Credentials
-
-- **Student**: `student@rebound.edu` / `password123`
-- **Teacher**: `teacher@rebound.edu` / `password123`
-- **Admin**: `admin@rebound.edu` / `password123`
-
-## Project Structure
-
-```
-rebound/
-├── backend/
-│   ├── models/          # MongoDB schemas
-│   ├── controllers/     # Route handlers
-│   ├── middleware/      # Auth, validation
-│   ├── utils/           # Recovery engine, AI utilities
-│   └── server.js        # Entry point
-├── frontend/
-│   ├── src/
-│   │   ├── components/  # Reusable UI components
-│   │   ├── pages/       # Dashboard pages
-│   │   ├── context/     # Auth context
-│   │   └── utils/       # API client
-│   └── index.html
-└── README.md
-```
+---
 
 ## Key Features
 
-- **Calendar Heatmap**: Visual workload distribution
-- **Grade Simulator**: Interactive "what-if" calculator
-- **Smart Prioritizer**: AI-powered task categorization
-- **Stress Analytics**: 14-day trend tracking
-- **Gamification**: Achievements, streaks, and XP system
-- **Mobile Responsive**: Works on all devices
+### For Students
+*   **AI Study Buddy**: Real-time context-aware chat to help with prioritization and stress.
+*   **Stress-Aware Planning**: We don't just track tasks; we adapt to your mental health status.
+*   **Goblin Tools Integration**: "Magic To-Do" breaks down complex tasks instantly into manageable steps.
+*   **Calendar Heatmap**: Visualize your academic intensity over time.
+*   **Grade Simulator**: Assess impact of assignments on final grades to make informed decisions.
+
+### For Teachers
+*   **Risk Analysis Dashboard**: Identify struggling students before they fail.
+*   **Direct Intervention**: Message students who show signs of burnout.
+*   **Wellness Monitoring**: View stress trends alongside academic performance.
+
+### For Admins
+*   **System Health Monitoring**: Real-time platform analytics.
+*   **User Management**: Role-based access control for secure data handling.
+
+---
+
+## Tech Stack
+
+*   **Frontend**: React, Vite, Tailwind CSS, Recharts, Framer Motion
+*   **Backend**: Node.js, Express, MongoDB
+*   **AI Engine**: Context-Aware Logic with Sentiment Analysis
+
+---
+
+## Quick Start
+
+### Prerequisites
+*   Node.js (v14+)
+*   MongoDB (Local or Atlas Connection String)
+
+### Installation
+
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/Sarthak816/rebound.git
+    cd rebound
+    ```
+
+2.  **Install Backend Dependencies**
+    ```bash
+    cd backend
+    npm install
+    ```
+
+3.  **Install Frontend Dependencies**
+    ```bash
+    cd ../frontend
+    npm install
+    ```
+
+4.  **Run the Application**
+    *   **Backend** (Port 5000):
+        ```bash
+        npm start
+        ```
+    *   **Frontend** (Port 5173):
+        ```bash
+        npm run dev
+        ```
+
+5.  **Access the App**
+    Open `http://localhost:5173` in your browser.
+
+---
+
+## Demo Credentials
+
+You can use these pre-configured accounts to explore the platform:
+
+*   **Student**: `student@rebound.edu` / `password123`
+*   **Teacher**: `teacher@rebound.edu` / `password123`
+*   **Admin**:   `admin@rebound.edu`   / `password123`
+
+---
 
 ## License
-
-MIT
+MIT License
