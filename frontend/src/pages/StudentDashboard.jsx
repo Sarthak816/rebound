@@ -10,6 +10,7 @@ import ProgressStats from '../components/ProgressStats';
 import EmptyState from '../components/EmptyState';
 import { SkeletonCard, SkeletonStats } from '../components/Skeleton';
 import { Loader2, Zap, BookOpen, AlertTriangle, Plus, BarChart3, ListTodo, UserCircle, Search, Filter } from 'lucide-react';
+import DarkModeToggle from '../components/DarkModeToggle';
 
 const StudentDashboard = () => {
     const { user, logout } = useAuth();
@@ -172,14 +173,8 @@ const StudentDashboard = () => {
                         <h1 className="text-xl font-serif font-bold text-academic-900">Rebound</h1>
                         <p className="text-xs text-academic-500">Welcome back, {user?.name}</p>
                     </div>
-                    <div className="flex gap-2 items-center flex-wrap">
-                        <button
-                            onClick={() => window.location.href = '/student/analytics'}
-                            className="bg-purple-100 text-purple-700 px-3 py-1.5 rounded-md text-sm flex items-center gap-1 hover:bg-purple-200 transition-colors"
-                        >
-                            <BarChart3 size={16} />
-                            Analytics
-                        </button>
+                    <div className="flex gap-2 items-center">
+                        <DarkModeToggle />
                         <button
                             onClick={() => window.location.href = '/student/profile'}
                             className="bg-academic-100 text-academic-700 px-3 py-1.5 rounded-md text-sm flex items-center gap-1 hover:bg-academic-200 transition-all hover:scale-105"
@@ -188,11 +183,18 @@ const StudentDashboard = () => {
                             Profile
                         </button>
                         <button
-                            onClick={() => setShowTaskInput(true)}
-                            className="bg-sage-700 text-white px-3 py-1.5 rounded-md text-sm flex items-center gap-1 hover:bg-sage-800 transition-all hover:scale-105 hover:shadow-md"
+                            onClick={() => window.location.href = '/student/analytics'}
+                            className="bg-sage-100 text-sage-700 px-3 py-1.5 rounded-md text-sm flex items-center gap-1 hover:bg-sage-200 transition-all hover:scale-105"
                         >
-                            <Plus size={16} />
-                            Add Task
+                            <BarChart3 size={16} />
+                            Analytics
+                        </button>
+                        <button
+                            onClick={() => setShowProgress(!showProgress)}
+                            className="bg-academic-100 text-academic-700 px-3 py-1.5 rounded-md text-sm flex items-center gap-1 hover:bg-academic-200 transition-all hover:scale-105"
+                        >
+                            <ListTodo size={16} />
+                            Progress
                         </button>
                         <button onClick={logout} className="text-sm text-academic-500 hover:text-red-600 transition-colors">Logout</button>
                     </div>
