@@ -353,7 +353,7 @@ const chatWithAI = async (req, res) => {
 
         // Build context for AI
         const pendingTasks = tasks.filter(t => t.status === 'Pending');
-        const overdueT asks = tasks.filter(t => t.status === 'Pending' && new Date(t.dueDate) < new Date());
+        const overdueTasks = tasks.filter(t => t.status === 'Pending' && new Date(t.dueDate) < new Date());
 
         const context = `
 You are an AI Study Buddy helping a student named ${req.user.name}.
@@ -414,12 +414,12 @@ const generateSmartResponse = (message, context) => {
     }
 
     // Motivation
-    if (msg.includes('motivat') || msg.includes('give up') || msg.includes('can\\'t do ')) {
+    if (msg.includes('motivat') || msg.includes('give up') || msg.includes("can't do")) {
         return `I believe in you! Here's why you CAN do this:\n\n✨ You're already taking action by asking for help\n✨ Every expert was once a beginner\n✨ Small steps lead to big achievements\n✨ You've overcome challenges before\n\nTake it one task at a time. You're stronger than you think! 💪🌟`;
-}
+    }
 
-// Default helpful response
-return `I'm here to help you succeed! I can assist with:\n\n📚 Study strategies and techniques\n⏰ Time management and prioritization\n😌 Stress management tips\n🎯 Task breakdown and planning\n💪 Motivation and encouragement\n\nWhat would you like to focus on? Feel free to ask me anything!`;
+    // Default helpful response
+    return `I'm here to help you succeed! I can assist with:\n\n📚 Study strategies and techniques\n⏰ Time management and prioritization\n😌 Stress management tips\n🎯 Task breakdown and planning\n💪 Motivation and encouragement\n\nWhat would you like to focus on? Feel free to ask me anything!`;
 };
 
 module.exports = {
