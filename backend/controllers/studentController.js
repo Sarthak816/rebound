@@ -89,7 +89,7 @@ const reportDailyLog = async (req, res) => {
 // @route   POST /api/student/task
 // @access  Private
 const addTask = async (req, res) => {
-    const { subjectId, title, dueDate, type, weightage } = req.body;
+    const { subjectId, title, dueDate, type, weightage, subtasks, estimatedTime } = req.body;
 
     const task = await Task.create({
         student: req.user._id,
@@ -98,6 +98,8 @@ const addTask = async (req, res) => {
         dueDate,
         type,
         weightage,
+        subtasks: subtasks || [],
+        estimatedTime: estimatedTime || 60,
         status: 'Pending'
     });
 
@@ -158,7 +160,7 @@ const completeTask = async (req, res) => {
 // @route   PUT /api/student/task/:id
 // @access  Private
 const updateTask = async (req, res) => {
-    const { title, dueDate, type, weightage, subjectId } = req.body;
+    const { title, dueDate, type, weightage, subjectId, subtasks, estimatedTime } = req.body;
     const task = await Task.findById(req.params.id);
 
     if (task && task.student.toString() === req.user._id.toString()) {
@@ -167,6 +169,11 @@ const updateTask = async (req, res) => {
         task.type = type || task.type;
         task.weightage = weightage !== undefined ? weightage : task.weightage;
         task.subject = subjectId || task.subject;
+
+        // Update subtasks if provided
+        if (subtasks) task.subtasks = subtasks;
+        if (estimatedTime) task.estimatedTime = estimatedTime;
+
         await task.save();
         res.json(task);
     } else {
