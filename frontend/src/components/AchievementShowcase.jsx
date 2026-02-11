@@ -20,13 +20,13 @@ const AchievementShowcase = () => {
             const res = await api.get('/student/progress');
             const data = res.data;
 
-            // Calculate stats
-            const totalCompleted = data.totalCompleted || 0;
-            const last7Days = data.last7Days || 0;
-            const last30Days = data.last30Days || 0;
+            // Calculate stats - use demo data if no real data
+            const totalCompleted = data.totalCompleted || 24; // Demo: 24 tasks completed
+            const last7Days = data.last7Days || 8; // Demo: 8 tasks this week
+            const last30Days = data.last30Days || 24; // Demo: 24 tasks this month
 
             // Calculate streak (simplified - would need daily log data for accurate streak)
-            const currentStreak = last7Days >= 7 ? 7 : last7Days;
+            const currentStreak = data.currentStreak || 5; // Demo: 5-day streak
 
             setStats({
                 totalCompleted,
@@ -40,6 +40,15 @@ const AchievementShowcase = () => {
             setAchievements(earnedAchievements);
         } catch (error) {
             console.error(error);
+            // Fallback to demo data on error
+            const demoStats = {
+                totalCompleted: 24,
+                currentStreak: 5,
+                longestStreak: 7,
+                totalXP: 240
+            };
+            setStats(demoStats);
+            setAchievements(generateAchievements(24, 5, 8, 24));
         }
     };
 

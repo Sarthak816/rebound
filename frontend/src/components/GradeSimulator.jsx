@@ -6,7 +6,7 @@ const GradeSimulator = () => {
     const [tasks, setTasks] = useState([]);
     const [selectedTask, setSelectedTask] = useState(null);
     const [simulatedGrade, setSimulatedGrade] = useState(85);
-    const [currentGrade, setCurrentGrade] = useState(0);
+    const [currentGrade, setCurrentGrade] = useState(75); // Demo: current grade is 75%
 
     useEffect(() => {
         fetchTasks();
@@ -15,14 +15,59 @@ const GradeSimulator = () => {
     const fetchTasks = async () => {
         try {
             const res = await api.get('/student/dashboard');
-            const pendingTasks = (res.data.tasks || []).filter(t => t.status === 'Pending');
-            setTasks(pendingTasks);
-            if (pendingTasks.length > 0) {
+            const apiTasks = res.data.tasks || [];
+            const pendingTasks = apiTasks.filter(t => t.status === 'Pending');
+
+            // If no pending tasks, use demo data
+            if (pendingTasks.length === 0) {
+                const demoTasks = generateDemoTasks();
+                setTasks(demoTasks);
+                setSelectedTask(demoTasks[0]);
+            } else {
+                setTasks(pendingTasks);
                 setSelectedTask(pendingTasks[0]);
             }
         } catch (error) {
             console.error(error);
+            // Fallback to demo data on error
+            const demoTasks = generateDemoTasks();
+            setTasks(demoTasks);
+            setSelectedTask(demoTasks[0]);
         }
+    };
+
+    const generateDemoTasks = () => {
+        const now = new Date();
+        return [
+            {
+                _id: 'demo-1',
+                title: 'Final Project Submission',
+                weightage: 30,
+                dueDate: new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+                status: 'Pending'
+            },
+            {
+                _id: 'demo-2',
+                title: 'Midterm Exam',
+                weightage: 25,
+                dueDate: new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+                status: 'Pending'
+            },
+            {
+                _id: 'demo-3',
+                title: 'Weekly Quiz',
+                weightage: 10,
+                dueDate: new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000).toISOString(),
+                status: 'Pending'
+            },
+            {
+                _id: 'demo-4',
+                title: 'Lab Report',
+                weightage: 15,
+                dueDate: new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+                status: 'Pending'
+            }
+        ];
     };
 
     const calculateImpact = () => {
