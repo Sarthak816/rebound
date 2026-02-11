@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import { CheckCircle2, Edit2, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import ConfirmDialog from './ConfirmDialog';
+import { InfoTooltip } from './Tooltip';
 
 const TaskCard = ({ task, onComplete, onEdit, onDelete, showScore }) => {
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -32,8 +33,9 @@ const TaskCard = ({ task, onComplete, onEdit, onDelete, showScore }) => {
                             {isOverdue ? 'Overdue' : daysUntilDue === 0 ? 'Due Today' : `Due in ${daysUntilDue} days`} • {format(dueDate, 'MMM d, yyyy')}
                         </p>
                         {showScore && task.rps !== undefined && (
-                            <div className="mt-2 text-xs text-sage-700 bg-sage-50 inline-block px-2 py-1 rounded">
+                            <div className="mt-2 text-xs text-sage-700 bg-sage-50 inline-flex items-center gap-1 px-2 py-1 rounded">
                                 Priority Score: <strong>{Math.round(task.rps)}</strong>
+                                <InfoTooltip text="AI-calculated priority based on deadline urgency, stress level, and grade weightage" position="top" />
                             </div>
                         )}
                     </div>

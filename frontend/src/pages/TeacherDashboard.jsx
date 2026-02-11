@@ -5,6 +5,7 @@ import api from '../utils/api';
 import MessageModal from '../components/MessageModal';
 import EmptyState from '../components/EmptyState';
 import { SkeletonStudentCard } from '../components/Skeleton';
+import { InfoTooltip } from '../components/Tooltip';
 import { Loader2, AlertCircle, CheckCircle, HelpCircle, MessageSquare, Users } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -84,9 +85,12 @@ const TeacherDashboard = () => {
                                     <h3 className="font-bold text-lg text-academic-900">{student.name}</h3>
                                     <p className="text-sm text-academic-500">{student.email}</p>
                                 </div>
-                                <span className={clsx("px-2 py-1 rounded text-xs font-bold border", getRiskColor(student.riskLevel))}>
-                                    {student.riskLevel} Risk
-                                </span>
+                                <div className="flex items-center gap-1">
+                                    <span className={clsx("px-2 py-1 rounded text-xs font-bold border", getRiskColor(student.riskLevel))}>
+                                        {student.riskLevel} Risk
+                                    </span>
+                                    <InfoTooltip text="Risk calculated from stress levels, missed tasks, and workload backlog" position="left" />
+                                </div>
                             </div>
 
                             <div className="space-y-3 text-sm text-academic-700">

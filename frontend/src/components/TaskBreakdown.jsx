@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useToast } from '../context/ToastContext';
 import { Sparkles, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
 import api from '../utils/api';
+import { InfoTooltip } from './Tooltip';
 
 const TaskBreakdown = ({ taskTitle, onSubtasksGenerated }) => {
     const { error: showError } = useToast();
@@ -61,7 +62,10 @@ const TaskBreakdown = ({ taskTitle, onSubtasksGenerated }) => {
 
             {/* Spiciness Level */}
             <div className="flex items-center gap-3 text-xs">
-                <label className="text-academic-600">Detail Level:</label>
+                <label className="text-academic-600 flex items-center gap-1">
+                    Detail Level:
+                    <InfoTooltip text="Choose how granular you want the task breakdown: Simple (3-5 steps), Normal (5-8 steps), or Detailed (8-12 steps)" position="right" />
+                </label>
                 <div className="flex gap-2">
                     {[1, 2, 3].map(level => (
                         <button
