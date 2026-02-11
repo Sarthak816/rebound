@@ -2,9 +2,16 @@
 
 A full-stack application to help students manage academic recovery through AI-powered task prioritization, stress tracking, and intelligent analytics.
 
+## 🏆 What Makes Rebound Different
+- **AI Study Buddy**: Real-time context-aware chat to help with prioritization and stress.
+- **Stress-Aware Planning**: We don't just track tasks; we adapt to your mental health.
+- **Teacher Intervention**: Automated risk detection connects struggling students with educators.
+- **Production Ready**: Full-stack implementation with secure authentication and real database.
+
 ## Features
 
 ### Student Dashboard
+- **AI Study Buddy Chatbot** 🤖 (New!)
 - Personalized recovery plans based on deadlines and stress levels
 - Interactive calendar heatmap showing workload intensity
 - Real-time grade impact simulator
