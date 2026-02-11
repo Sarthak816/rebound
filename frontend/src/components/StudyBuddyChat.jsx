@@ -86,8 +86,10 @@ const StudyBuddyChat = () => {
                         </div>
                         <button
                             onClick={() => setIsOpen(false)}
-                            className="hover:bg-sage-800 p-1 rounded transition-colors"
+                            className="hover:bg-sage-800 p-2 rounded-lg transition-colors flex items-center gap-1"
+                            title="Close Chat"
                         >
+                            <span className="text-sm font-medium">Close</span>
                             <X size={20} />
                         </button>
                     </div>
@@ -106,8 +108,8 @@ const StudyBuddyChat = () => {
                                 )}
                                 <div
                                     className={`max-w-[75%] p-3 rounded-lg ${msg.role === 'user'
-                                            ? 'bg-sage-600 text-white rounded-br-none'
-                                            : 'bg-white border border-academic-200 rounded-bl-none'
+                                        ? 'bg-sage-600 text-white rounded-br-none'
+                                        : 'bg-white border border-academic-200 rounded-bl-none'
                                         }`}
                                 >
                                     <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
