@@ -29,7 +29,7 @@ const LandingPage = () => {
                                 to="/register"
                                 className="px-8 py-4 bg-sage-700 text-white rounded-lg font-medium text-lg hover:bg-sage-800 transition-all hover:scale-105 hover:shadow-xl"
                             >
-                                Get Started Free
+                                Start Your Journey
                             </Link>
                             <Link
                                 to="/login"
@@ -178,7 +178,7 @@ const LandingPage = () => {
                             to="/register"
                             className="inline-block px-8 py-4 bg-sage-700 text-white rounded-lg font-medium text-lg hover:bg-sage-800 transition-all hover:scale-105 hover:shadow-xl"
                         >
-                            Start Your Free Trial
+                            Begin Your Journey
                         </Link>
                         <p className="text-sm text-academic-500 mt-4">
                             No credit card required • Free forever for students
