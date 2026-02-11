@@ -62,8 +62,8 @@ const StudentDashboard = () => {
     const handleCompleteTask = async (taskId) => {
         try {
             await api.put(`/student/task/${taskId}/complete`);
-            celebrateTaskCompletion(); // 🎉 Confetti!
-            success('Task completed! Great work! 🎉');
+            celebrateTaskCompletion();
+            success('Task completed! Great work!');
             fetchDashboard();
         } catch (error) {
             console.error(error);

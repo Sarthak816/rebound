@@ -198,7 +198,7 @@ const LandingPage = () => {
             <footer className="py-8 bg-academic-900 text-academic-300">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
                     <p className="text-sm">
-                        © 2026 REBOUND. Built with ❤️ for students who never give up.
+                        © 2026 REBOUND. Built for students who never give up.
                     </p>
                 </div>
             </footer>

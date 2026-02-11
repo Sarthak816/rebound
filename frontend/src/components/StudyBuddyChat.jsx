@@ -155,7 +155,7 @@ const StudyBuddyChat = () => {
                             </button>
                         </div>
                         <p className="text-xs text-academic-500 mt-2">
-                            💡 Try asking about study tips, task prioritization, or stress management
+                            Try asking about study tips, task prioritization, or stress management
                         </p>
                     </div>
                 </div>

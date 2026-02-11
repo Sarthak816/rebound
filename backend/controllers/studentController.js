@@ -391,63 +391,63 @@ const generateSmartResponse = (message, context) => {
     // Stress-related queries
     if (msg.includes('stress') || msg.includes('anxious') || msg.includes('overwhelm')) {
         if (context.stressLevel > 7) {
-            return `I can see you're experiencing high stress (level ${context.stressLevel}/10). Here's what can help:\n\n1. Take a 10-minute break right now\n2. Focus on just ONE task at a time\n3. Try the Pomodoro technique (25 min work, 5 min break)\n4. Consider talking to your teacher about ${context.overdueTasks} overdue tasks\n\nRemember: You've got this! 💪`;
+            return `I can see you're experiencing high stress (level ${context.stressLevel}/10). Here's what can help:\n\n1. Take a 10-minute break right now\n2. Focus on just ONE task at a time\n3. Try the Pomodoro technique (25 min work, 5 min break)\n4. Consider talking to your teacher about ${context.overdueTasks} overdue tasks\n\nRemember: You've got this!`;
         }
-        return `Managing stress is important! Try:\n\n1. Break large tasks into smaller steps\n2. Prioritize your ${context.pendingTasks} pending tasks\n3. Take regular breaks\n4. Practice deep breathing\n\nYou're doing great! 🌟`;
+        return `Managing stress is important! Try:\n\n1. Break large tasks into smaller steps\n2. Prioritize your ${context.pendingTasks} pending tasks\n3. Take regular breaks\n4. Practice deep breathing\n\nYou're doing great!`;
     }
 
     // Task prioritization
     if (msg.includes('priorit') || msg.includes('what should i do') || msg.includes('where to start')) {
         if (context.overdueTasks > 0) {
-            return `You have ${context.overdueTasks} overdue tasks - let's tackle those first!\n\n1. Start with the task closest to its deadline\n2. Break it into 3-4 smaller steps\n3. Complete just the first step today\n4. Then move to the next task\n\nSmall progress is still progress! 🎯`;
+            return `You have ${context.overdueTasks} overdue tasks - let's tackle those first!\n\n1. Start with the task closest to its deadline\n2. Break it into 3-4 smaller steps\n3. Complete just the first step today\n4. Then move to the next task\n\nSmall progress is still progress!`;
         }
-        return `Great question! Here's how to prioritize your ${context.pendingTasks} tasks:\n\n1. Check deadlines - do urgent tasks first\n2. Consider task weightage - high-value tasks matter more\n3. Match tasks to your energy level\n4. Start with something achievable to build momentum\n\nYou've got a solid plan! 📚`;
+        return `Great question! Here's how to prioritize your ${context.pendingTasks} tasks:\n\n1. Check deadlines - do urgent tasks first\n2. Consider task weightage - high-value tasks matter more\n3. Match tasks to your energy level\n4. Start with something achievable to build momentum\n\nYou've got a solid plan!`;
     }
 
     // Study tips
     if (msg.includes('study') || msg.includes('learn') || msg.includes('exam') || msg.includes('test')) {
-        return `Here are proven study strategies:\n\n1. **Active Recall**: Test yourself instead of re-reading\n2. **Spaced Repetition**: Review material over multiple days\n3. **Pomodoro Technique**: 25 min focused study, 5 min break\n4. **Teach Someone**: Explaining concepts solidifies learning\n\nFor ${context.subjects.length > 0 ? context.subjects.join(', ') : 'your subjects'}, try creating flashcards or practice problems! 📖`;
+        return `Here are proven study strategies:\n\n1. **Active Recall**: Test yourself instead of re-reading\n2. **Spaced Repetition**: Review material over multiple days\n3. **Pomodoro Technique**: 25 min focused study, 5 min break\n4. **Teach Someone**: Explaining concepts solidifies learning\n\nFor ${context.subjects.length > 0 ? context.subjects.join(', ') : 'your subjects'}, try creating flashcards or practice problems!`;
     }
 
     // Time management
     if (msg.includes('time') || msg.includes('schedule') || msg.includes('plan')) {
-        return `Let's optimize your time with ${context.pendingTasks} tasks:\n\n1. **Time Block**: Assign specific hours to each task\n2. **2-Minute Rule**: If it takes <2 min, do it now\n3. **Batch Similar Tasks**: Group readings, assignments, etc.\n4. **Buffer Time**: Add 25% extra time to estimates\n\nConsistency beats perfection! ⏰`;
+        return `Let's optimize your time with ${context.pendingTasks} tasks:\n\n1. **Time Block**: Assign specific hours to each task\n2. **2-Minute Rule**: If it takes <2 min, do it now\n3. **Batch Similar Tasks**: Group readings, assignments, etc.\n4. **Buffer Time**: Add 25% extra time to estimates\n\nConsistency beats perfection!`;
     }
 
     // Motivation
     if (msg.includes('motivat') || msg.includes('give up') || msg.includes("can't do")) {
-        return `I believe in you! Here's why you CAN do this:\n\n✨ You're already taking action by asking for help\n✨ Every expert was once a beginner\n✨ Small steps lead to big achievements\n✨ You've overcome challenges before\n\nTake it one task at a time. You're stronger than you think! 💪🌟`;
+        return `I believe in you! Here's why you CAN do this:\n\n You're already taking action by asking for help\n Every expert was once a beginner\n Small steps lead to big achievements\n You've overcome challenges before\n\nTake it one task at a time. You're stronger than you think!`;
     }
 
     // --- NEW PATTERNS ---
 
     // Greeting / Start
     if (msg.includes('hi') || msg.includes('hello') || msg.includes('hey')) {
-        return `Hi ${context.name}! 👋 I'm ready to help you bounce back.\n\nWe sort tasks by **Stress Level**, not just due dates. How are you feeling today?`;
+        return `Hi ${context.name}! I'm ready to help you bounce back.\n\nWe sort tasks by **Stress Level**, not just due dates. How are you feeling today?`;
     }
 
     // "How does this app work?"
     if (msg.includes('how') && (msg.includes('work') || msg.includes('app') || msg.includes('help'))) {
-        return `REBOUND is different because we care about your mental health 🧠.\n\n1. **We breakdown tasks** so they aren't scary.\n2. **We track your stress** to prevent burnout.\n3. **We talk to teachers** if you're struggling.\n\nCheck your Dashboard for your "Recovery Plan"!`;
+        return `REBOUND is different because we care about your mental health.\n\n1. **We breakdown tasks** so they aren't scary.\n2. **We track your stress** to prevent burnout.\n3. **We talk to teachers** if you're struggling.\n\nCheck your Dashboard for your "Recovery Plan"!`;
     }
 
     // "I am tired" / Burnout
     if (msg.includes('tired') || msg.includes('burnout') || msg.includes('sleep') || msg.includes('exhaust')) {
-        return `It sounds like you need a **Recovery Break**. 🛑\n\nScience says pushing through burnout lowers grades. \n\n**Action Plan:**\n1. Close this tab.\n2. Sleep or walk for 20 mins.\n3. Come back and do ONE small task.\n\nI'll be here when you're ready.`;
+        return `It sounds like you need a **Recovery Break**.\n\nScience says pushing through burnout lowers grades. \n\n**Action Plan:**\n1. Close this tab.\n2. Sleep or walk for 20 mins.\n3. Come back and do ONE small task.\n\nI'll be here when you're ready.`;
     }
 
     // "My grades are bad"
     if (msg.includes('grade') || msg.includes('fail') || msg.includes('score') || msg.includes('bad')) {
-        return `One bad grade doesn't define you. 📉 ➡️ 📈\n\nUse the **Grade Simulator** on your dashboard to see how to recover. \n\nEven a 1% improvement is progress. Let's focus on the next assignment, not the last one.`;
+        return `One bad grade doesn't define you.\n\nUse the **Grade Simulator** on your dashboard to see how to recover. \n\nEven a 1% improvement is progress. Let's focus on the next assignment, not the last one.`;
     }
 
     // "Thank you"
     if (msg.includes('thank') || msg.includes('thanks') || msg.includes('good bot')) {
-        return `You're welcome! 🤖💙\n\nRemember, YOU are the one doing the hard work. I'm just the cheerleader. Keep going!`;
+        return `You're welcome!\n\nRemember, YOU are the one doing the hard work. I'm just the cheerleader. Keep going!`;
     }
 
     // Default helpful response
-    return `I'm listening! I can help with:\n\n📚 **Study Strategies** (Pomodoro, Active Recall)\n🤯 **Stress Management** (Breaks, Mindfulness)\n⏰ **Time Management** (Prioritization)\n\nTry asking: "I am stressed" or "How do I study for math?"`;
+    return `I'm listening! I can help with:\n\n**Study Strategies** (Pomodoro, Active Recall)\n**Stress Management** (Breaks, Mindfulness)\n**Time Management** (Prioritization)\n\nTry asking: "I am stressed" or "How do I study for math?"`;
 };
 
 module.exports = {
