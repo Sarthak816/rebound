@@ -11,6 +11,7 @@ import EmptyState from '../components/EmptyState';
 import { SkeletonCard, SkeletonStats } from '../components/Skeleton';
 import { Loader2, Zap, BookOpen, AlertTriangle, Plus, BarChart3, ListTodo, UserCircle, Search, Filter } from 'lucide-react';
 import NotificationBell from '../components/NotificationBell';
+import StudyBuddyChat from '../components/StudyBuddyChat';
 
 const StudentDashboard = () => {
     const { user, logout } = useAuth();
@@ -401,6 +402,7 @@ const StudentDashboard = () => {
                     onClose={handleCloseTaskInput}
                 />
             )}
+            <StudyBuddyChat />
         </div>
     );
 };

@@ -338,6 +338,90 @@ const getMessages = async (req, res) => {
     }
 };
 
+// @desc    Chat with AI Study Buddy
+// @route   POST /api/student/chat
+// @access  Private (Student)
+const chatWithAI = async (req, res) => {
+    try {
+        const studentId = req.user._id;
+        const { message } = req.body;
+
+        // Get student context for personalized responses
+        const tasks = await Task.find({ student: studentId });
+        const subjects = await Subject.find({ student: studentId });
+        const recentLog = await DailyLog.findOne({ student: studentId }).sort({ date: -1 });
+
+        // Build context for AI
+        const pendingTasks = tasks.filter(t => t.status === 'Pending');
+        const overdueT asks = tasks.filter(t => t.status === 'Pending' && new Date(t.dueDate) < new Date());
+
+        const context = `
+You are an AI Study Buddy helping a student named ${req.user.name}.
+
+Student Context:
+- Total tasks: ${tasks.length}
+- Pending tasks: ${pendingTasks.length}
+- Overdue tasks: ${overdueTasks.length}
+- Current stress level: ${recentLog?.stressLevel || 'Not reported'}
+- Subjects: ${subjects.map(s => s.name).join(', ') || 'None yet'}
+
+Provide helpful, encouraging, and actionable advice. Be concise and supportive.
+`;
+
+        // Simple AI response (you can integrate OpenAI API here)
+        // For now, using rule-based responses for demo
+        let response = generateSmartResponse(message, {
+            pendingTasks: pendingTasks.length,
+            overdueTasks: overdueTasks.length,
+            stressLevel: recentLog?.stressLevel || 5,
+            subjects: subjects.map(s => s.name)
+        });
+
+        res.json({ response });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Helper function for smart responses
+const generateSmartResponse = (message, context) => {
+    const msg = message.toLowerCase();
+
+    // Stress-related queries
+    if (msg.includes('stress') || msg.includes('anxious') || msg.includes('overwhelm')) {
+        if (context.stressLevel > 7) {
+            return `I can see you're experiencing high stress (level ${context.stressLevel}/10). Here's what can help:\n\n1. Take a 10-minute break right now\n2. Focus on just ONE task at a time\n3. Try the Pomodoro technique (25 min work, 5 min break)\n4. Consider talking to your teacher about ${context.overdueTasks} overdue tasks\n\nRemember: You've got this! 💪`;
+        }
+        return `Managing stress is important! Try:\n\n1. Break large tasks into smaller steps\n2. Prioritize your ${context.pendingTasks} pending tasks\n3. Take regular breaks\n4. Practice deep breathing\n\nYou're doing great! 🌟`;
+    }
+
+    // Task prioritization
+    if (msg.includes('priorit') || msg.includes('what should i do') || msg.includes('where to start')) {
+        if (context.overdueTasks > 0) {
+            return `You have ${context.overdueTasks} overdue tasks - let's tackle those first!\n\n1. Start with the task closest to its deadline\n2. Break it into 3-4 smaller steps\n3. Complete just the first step today\n4. Then move to the next task\n\nSmall progress is still progress! 🎯`;
+        }
+        return `Great question! Here's how to prioritize your ${context.pendingTasks} tasks:\n\n1. Check deadlines - do urgent tasks first\n2. Consider task weightage - high-value tasks matter more\n3. Match tasks to your energy level\n4. Start with something achievable to build momentum\n\nYou've got a solid plan! 📚`;
+    }
+
+    // Study tips
+    if (msg.includes('study') || msg.includes('learn') || msg.includes('exam') || msg.includes('test')) {
+        return `Here are proven study strategies:\n\n1. **Active Recall**: Test yourself instead of re-reading\n2. **Spaced Repetition**: Review material over multiple days\n3. **Pomodoro Technique**: 25 min focused study, 5 min break\n4. **Teach Someone**: Explaining concepts solidifies learning\n\nFor ${context.subjects.length > 0 ? context.subjects.join(', ') : 'your subjects'}, try creating flashcards or practice problems! 📖`;
+    }
+
+    // Time management
+    if (msg.includes('time') || msg.includes('schedule') || msg.includes('plan')) {
+        return `Let's optimize your time with ${context.pendingTasks} tasks:\n\n1. **Time Block**: Assign specific hours to each task\n2. **2-Minute Rule**: If it takes <2 min, do it now\n3. **Batch Similar Tasks**: Group readings, assignments, etc.\n4. **Buffer Time**: Add 25% extra time to estimates\n\nConsistency beats perfection! ⏰`;
+    }
+
+    // Motivation
+    if (msg.includes('motivat') || msg.includes('give up') || msg.includes('can\\'t do ')) {
+        return `I believe in you! Here's why you CAN do this:\n\n✨ You're already taking action by asking for help\n✨ Every expert was once a beginner\n✨ Small steps lead to big achievements\n✨ You've overcome challenges before\n\nTake it one task at a time. You're stronger than you think! 💪🌟`;
+}
+
+// Default helpful response
+return `I'm here to help you succeed! I can assist with:\n\n📚 Study strategies and techniques\n⏰ Time management and prioritization\n😌 Stress management tips\n🎯 Task breakdown and planning\n💪 Motivation and encouragement\n\nWhat would you like to focus on? Feel free to ask me anything!`;
+};
+
 module.exports = {
     getDashboard,
     reportDailyLog,
@@ -352,5 +436,6 @@ module.exports = {
     breakdownTaskEndpoint,
     getPerspective,
     getWorkload,
-    getMessages
+    getMessages,
+    chatWithAI
 };

@@ -14,7 +14,8 @@ const {
     breakdownTaskEndpoint,
     getPerspective,
     getWorkload,
-    getMessages
+    getMessages,
+    chatWithAI
 } = require('../controllers/studentController');
 const { protect } = require('../middleware/authMiddleware');
 const { taskValidation, subjectValidation, stressLogValidation } = require('../middleware/validationMiddleware');
@@ -23,6 +24,7 @@ router.get('/dashboard', protect, getDashboard);
 router.get('/progress', protect, getProgress);
 router.get('/workload', protect, getWorkload);
 router.get('/messages', protect, getMessages);
+router.post('/chat', protect, chatWithAI);
 router.post('/log', protect, stressLogValidation, reportDailyLog);
 
 // Goblin Tools Features
