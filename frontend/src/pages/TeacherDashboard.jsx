@@ -4,6 +4,7 @@ import { useToast } from '../context/ToastContext';
 import api from '../utils/api';
 import MessageModal from '../components/MessageModal';
 import EmptyState from '../components/EmptyState';
+import { SkeletonStudentCard } from '../components/Skeleton';
 import { Loader2, AlertCircle, CheckCircle, HelpCircle, MessageSquare, Users } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -37,7 +38,28 @@ const TeacherDashboard = () => {
         }
     };
 
-    if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin" /></div>;
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-academic-50">
+                <header className="bg-white border-b border-academic-200 sticky top-0 z-10">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+                        <div>
+                            <h1 className="text-xl font-serif font-bold text-academic-900">Rebound Educator</h1>
+                            <p className="text-xs text-academic-500">Loading...</p>
+                        </div>
+                    </div>
+                </header>
+                <main className="max-w-6xl mx-auto p-4 sm:p-6">
+                    <h2 className="text-2xl font-serif font-bold text-academic-800 mb-6">Student Risk Overview</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                        <SkeletonStudentCard />
+                        <SkeletonStudentCard />
+                        <SkeletonStudentCard />
+                    </div>
+                </main>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-academic-50">

@@ -7,6 +7,7 @@ import TaskCard from '../components/TaskCard';
 import TaskInput from '../components/TaskInput';
 import ProgressStats from '../components/ProgressStats';
 import EmptyState from '../components/EmptyState';
+import { SkeletonCard, SkeletonStats } from '../components/Skeleton';
 import { Loader2, Zap, BookOpen, AlertTriangle, Plus, BarChart3, ListTodo } from 'lucide-react';
 
 const StudentDashboard = () => {
@@ -88,7 +89,28 @@ const StudentDashboard = () => {
         setEditingTask(null);
     };
 
-    if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin" /></div>;
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-academic-50">
+                <header className="bg-white border-b border-academic-200 sticky top-0 z-10">
+                    <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+                        <div>
+                            <h1 className="text-xl font-serif font-bold text-academic-900">Rebound</h1>
+                            <p className="text-xs text-academic-500">Loading...</p>
+                        </div>
+                    </div>
+                </header>
+                <main className="max-w-4xl mx-auto p-4 space-y-6">
+                    <SkeletonStats />
+                    <div className="space-y-3">
+                        <SkeletonCard />
+                        <SkeletonCard />
+                        <SkeletonCard />
+                    </div>
+                </main>
+            </div>
+        );
+    }
 
     const { recoveryPlan, tasks, subjects } = data || {};
 
