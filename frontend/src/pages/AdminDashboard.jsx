@@ -52,7 +52,7 @@ const AdminDashboard = () => {
             <main className="max-w-6xl mx-auto p-4 space-y-6">
                 {/* Stats Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div className="bg-white p-4 rounded-lg border border-academic-200">
+                    <div className="bg-white p-4 rounded-lg border border-academic-200 hover:shadow-md transition-all hover:scale-105 animate-fadeInDown">
                         <div className="flex items-center gap-3">
                             <Users className="text-sage-600" size={24} />
                             <div>
@@ -61,7 +61,7 @@ const AdminDashboard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="bg-white p-4 rounded-lg border border-academic-200">
+                    <div className="bg-white p-4 rounded-lg border border-academic-200 hover:shadow-md transition-all hover:scale-105 animate-fadeInDown" style={{ animationDelay: '0.1s' }}>
                         <div className="flex items-center gap-3">
                             <TrendingUp className="text-sage-600" size={24} />
                             <div>
@@ -70,7 +70,7 @@ const AdminDashboard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="bg-white p-4 rounded-lg border border-academic-200">
+                    <div className="bg-white p-4 rounded-lg border border-academic-200 hover:shadow-md transition-all hover:scale-105 animate-fadeInDown" style={{ animationDelay: '0.2s' }}>
                         <div className="flex items-center gap-3">
                             <Users className="text-sage-600" size={24} />
                             <div>
@@ -79,7 +79,7 @@ const AdminDashboard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="bg-white p-4 rounded-lg border border-academic-200">
+                    <div className="bg-white p-4 rounded-lg border border-academic-200 hover:shadow-md transition-all hover:scale-105 animate-fadeInDown" style={{ animationDelay: '0.3s' }}>
                         <div className="flex items-center gap-3">
                             <AlertCircle className="text-amber-600" size={24} />
                             <div>
@@ -91,7 +91,7 @@ const AdminDashboard = () => {
                 </div>
 
                 {/* User Management */}
-                <section className="bg-white rounded-lg border border-academic-200 p-6">
+                <section className="bg-white rounded-lg border border-academic-200 p-6 animate-slideUp">
                     <h2 className="text-lg font-serif font-bold text-academic-800 mb-4">User Management</h2>
                     <div className="overflow-x-auto">
                         <table className="w-full">
@@ -110,15 +110,15 @@ const AdminDashboard = () => {
                                         <td className="px-4 py-3 text-sm text-academic-600">{u.email}</td>
                                         <td className="px-4 py-3">
                                             <span className={`text-xs px-2 py-1 rounded ${u.role === 'admin' ? 'bg-red-100 text-red-700' :
-                                                    u.role === 'teacher' ? 'bg-sage-100 text-sage-700' :
-                                                        'bg-academic-100 text-academic-700'
+                                                u.role === 'teacher' ? 'bg-sage-100 text-sage-700' :
+                                                    'bg-academic-100 text-academic-700'
                                                 }`}>
                                                 {u.role}
                                             </span>
                                         </td>
                                         <td className="px-4 py-3">
-                                            <button className="text-xs text-sage-600 hover:text-sage-800 mr-3">Edit</button>
-                                            <button className="text-xs text-red-600 hover:text-red-800">Delete</button>
+                                            <button className="text-xs text-sage-600 hover:text-sage-800 hover:underline transition-colors mr-3">Edit</button>
+                                            <button className="text-xs text-red-600 hover:text-red-800 hover:underline transition-colors">Delete</button>
                                         </td>
                                     </tr>
                                 ))}
@@ -126,7 +126,7 @@ const AdminDashboard = () => {
                         </table>
                     </div>
                     <div className="mt-4">
-                        <button className="px-4 py-2 bg-sage-700 text-white rounded text-sm hover:bg-sage-800">
+                        <button className="px-4 py-2 bg-sage-700 text-white rounded text-sm hover:bg-sage-800 transition-all hover:scale-105 hover:shadow-md">
                             Add New User
                         </button>
                     </div>
