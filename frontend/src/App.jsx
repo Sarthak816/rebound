@@ -48,8 +48,7 @@ function App() {
           </Routes>
         </AuthProvider>
       </ToastProvider>
-    </ThemeProvider>
-    </Router >
+    </Router>
   );
 }
 
