@@ -26,7 +26,7 @@ app.use(morgan('dev'));
 // Rate Limiting
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per windowMs
+    max: 1000, // Increased for development/testing
     message: 'Too many requests from this IP, please try again later.'
 });
 app.use('/api/', limiter);
@@ -34,7 +34,7 @@ app.use('/api/', limiter);
 // Stricter rate limit for auth routes
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 10, // 10 login/register attempts per 15 minutes
+    max: 100, // Increased from 10 to 100 for development
     message: 'Too many authentication attempts, please try again later.'
 });
 app.use('/api/auth', authLimiter);
