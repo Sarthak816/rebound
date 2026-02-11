@@ -15,44 +15,57 @@ const getStudents = async (req, res) => {
         // For demo/hackathon: show all students
         // In production, you'd filter by: { assignedTeacher: teacherId }
         const students = await User.find({ role: 'student' }).select('-password');
+        console.log(`👨‍🏫 Teacher Dashboard: Found ${students.length} students in DB.`);
 
         const studentData = [];
 
         for (const student of students) {
-            // Get recent logs (7 days) for stress history
-            const logs = await DailyLog.find({
-                student: student._id
-            }).sort({ date: 1 }).limit(7);
+            try {
+                // Get recent logs (7 days) for stress history
+                const logs = await DailyLog.find({
+                    student: student._id
+                }).sort({ date: 1 }).limit(7);
 
-            // Get tasks statistics
-            const tasks = await Task.find({ student: student._id });
-            const missedTasksCount = tasks.filter(t => t.status === 'Missed' || (t.status === 'Pending' && new Date(t.dueDate) < new Date())).length;
-            const overdueTasksCount = tasks.filter(t => t.status === 'Pending' && new Date(t.dueDate) < new Date()).length;
+                // Get tasks statistics
+                const tasks = await Task.find({ student: student._id }) || [];
+                const missedTasksCount = tasks.filter(t => t.status === 'Missed' || (t.status === 'Pending' && new Date(t.dueDate) < new Date())).length;
+                const overdueTasksCount = tasks.filter(t => t.status === 'Pending' && new Date(t.dueDate) < new Date()).length;
 
-            // Calculate backlog depth (tasks due in future vs total)
-            // Simplified: verify backlog depth
-            const pendingTasks = tasks.filter(t => t.status === 'Pending' && new Date(t.dueDate) >= new Date());
+                // Calculate backlog depth (tasks due in future vs total)
+                const pendingTasks = tasks.filter(t => t.status === 'Pending' && new Date(t.dueDate) >= new Date());
 
-            // Prepare data for risk assessment
-            const stressHistory = logs.map(l => l.stressLevel);
+                // Prepare data for risk assessment
+                const stressHistory = logs ? logs.map(l => l.stressLevel) : [];
 
-            const riskLevel = assessRisk({
-                stressHistory,
-                missedTasksCount,
-                overdueTasksCount,
-                backlogDepthDays: pendingTasks.length // Simplified proxy
-            });
+                const riskLevel = assessRisk({
+                    stressHistory,
+                    missedTasksCount,
+                    overdueTasksCount,
+                    backlogDepthDays: pendingTasks.length
+                });
 
-            studentData.push({
-                ...student.toObject(),
-                riskLevel,
-                latestStress: stressHistory[stressHistory.length - 1] || 'N/A',
-                missedTasks: missedTasksCount
-            });
+                studentData.push({
+                    ...student.toObject(),
+                    riskLevel,
+                    latestStress: stressHistory.length > 0 ? stressHistory[stressHistory.length - 1] : 0,
+                    missedTasks: missedTasksCount
+                });
+            } catch (innerError) {
+                console.error(`❌ Error processing student ${student.name}:`, innerError.message);
+                // Push with default data so they still show up
+                studentData.push({
+                    ...student.toObject(),
+                    riskLevel: 'Low',
+                    latestStress: 'N/A',
+                    missedTasks: 0,
+                    error: 'Failed to load stats'
+                });
+            }
         }
 
         res.json(studentData);
     } catch (error) {
+        console.error('❌ Teacher Dashboard Error:', error.message);
         res.status(500).json({ message: error.message });
     }
 };
