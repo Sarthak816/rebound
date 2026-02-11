@@ -13,6 +13,17 @@ const NotificationBell = ({ messages = [] }) => {
         }
     }, [showDropdown]);
 
+    // Auto-refresh messages every 10 seconds when dropdown is open
+    useEffect(() => {
+        if (showDropdown) {
+            const interval = setInterval(() => {
+                fetchMessages();
+            }, 10000); // Refresh every 10 seconds
+
+            return () => clearInterval(interval);
+        }
+    }, [showDropdown]);
+
     const fetchMessages = async () => {
         setLoading(true);
         try {
