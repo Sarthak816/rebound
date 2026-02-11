@@ -64,8 +64,14 @@ const Profile = () => {
             return;
         }
 
-        if (passwordData.newPassword.length < 6) {
-            showError('Password must be at least 6 characters');
+        const minLength = 8;
+        const hasUpperCase = /[A-Z]/.test(passwordData.newPassword);
+        const hasLowerCase = /[a-z]/.test(passwordData.newPassword);
+        const hasNumbers = /\d/.test(passwordData.newPassword);
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(passwordData.newPassword);
+
+        if (passwordData.newPassword.length < minLength || !hasUpperCase || !hasLowerCase || !hasNumbers || !hasSpecialChar) {
+            showError('Password does not meet requirements');
             return;
         }
 
@@ -245,6 +251,23 @@ const Profile = () => {
                                     >
                                         {showNewPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                     </button>
+                                </div>
+                                <div className="mt-2 text-xs space-y-1 text-academic-500">
+                                    <p className={passwordData.newPassword.length >= 8 ? "text-green-600" : ""}>
+                                        • At least 8 characters
+                                    </p>
+                                    <p className={/[A-Z]/.test(passwordData.newPassword) ? "text-green-600" : ""}>
+                                        • At least one uppercase letter
+                                    </p>
+                                    <p className={/[a-z]/.test(passwordData.newPassword) ? "text-green-600" : ""}>
+                                        • At least one lowercase letter
+                                    </p>
+                                    <p className={/\d/.test(passwordData.newPassword) ? "text-green-600" : ""}>
+                                        • At least one number
+                                    </p>
+                                    <p className={/[!@#$%^&*(),.?":{}|<>]/.test(passwordData.newPassword) ? "text-green-600" : ""}>
+                                        • At least one special character
+                                    </p>
                                 </div>
                             </div>
 

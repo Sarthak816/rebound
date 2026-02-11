@@ -113,6 +113,23 @@ const Register = () => {
                                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                             </button>
                         </div>
+                        <div className="mt-2 text-xs space-y-1 text-academic-500">
+                            <p className={formData.password.length >= 8 ? "text-green-600" : ""}>
+                                • At least 8 characters
+                            </p>
+                            <p className={/[A-Z]/.test(formData.password) ? "text-green-600" : ""}>
+                                • At least one uppercase letter
+                            </p>
+                            <p className={/[a-z]/.test(formData.password) ? "text-green-600" : ""}>
+                                • At least one lowercase letter
+                            </p>
+                            <p className={/\d/.test(formData.password) ? "text-green-600" : ""}>
+                                • At least one number
+                            </p>
+                            <p className={/[!@#$%^&*(),.?":{}|<>]/.test(formData.password) ? "text-green-600" : ""}>
+                                • At least one special character
+                            </p>
+                        </div>
                     </div>
 
                     <div>

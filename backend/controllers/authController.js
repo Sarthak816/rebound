@@ -8,6 +8,19 @@ const generateToken = (id) => {
     });
 };
 
+const validatePassword = (password) => {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    if (password.length < minLength || !hasUpperCase || !hasLowerCase || !hasNumbers || !hasSpecialChar) {
+        return false;
+    }
+    return true;
+};
+
 // @desc    Auth user & get token
 // @route   POST /api/auth/login
 // @access  Public
@@ -45,6 +58,11 @@ const loginUser = async (req, res) => {
 // @access  Public (or Admin only later)
 const registerUser = async (req, res) => {
     const { name, email, password, role } = req.body;
+
+    if (!validatePassword(password)) {
+        res.status(400);
+        throw new Error('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+    }
 
     const userExists = await User.findOne({ email });
 
@@ -109,6 +127,11 @@ const updateProfile = async (req, res) => {
 const changePassword = async (req, res) => {
     const { currentPassword, newPassword } = req.body;
 
+    if (!validatePassword(newPassword)) {
+        res.status(400);
+        throw new Error('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+    }
+
     const user = await User.findById(req.user._id);
 
     if (user && (await user.matchPassword(currentPassword))) {
@@ -155,6 +178,11 @@ const requestPasswordReset = async (req, res) => {
 const resetPassword = async (req, res) => {
     const { token } = req.params;
     const { newPassword } = req.body;
+
+    if (!validatePassword(newPassword)) {
+        res.status(400);
+        throw new Error('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+    }
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
