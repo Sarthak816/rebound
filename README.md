@@ -104,7 +104,7 @@ Watch `Rebound` in action:
 ## Deployment
 Experience the live application:
 
-https://couch-potato-amuhacks-5-0.vercel.app/
+here: https://couch-potato-amuhacks-5-0.vercel.app/
 
 ---
 
