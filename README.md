@@ -92,5 +92,22 @@ You can use these pre-configured accounts to explore the platform:
 
 ---
 
+
+---
+
+## 🎥 Demo Video
+Watch `Rebound` in action:
+[Watch Demo on Loom](https://www.loom.com/share/0434bf3770084fc48424213b5f8215f0)
+
+---
+
+## 🚀 Deployment
+Experience the live application:
+
+*   **Frontend (Vercel)**: [Submit your Vercel Link Here]
+*   **Backend (Render)**: [Submit your Render Link Here]
+
+---
+
 ## License
 MIT License
